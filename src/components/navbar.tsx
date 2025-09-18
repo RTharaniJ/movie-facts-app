@@ -1,12 +1,21 @@
 import Link from "next/link";
 import React from "react";
+import { SignIn } from "./auth/signin-button";
+import { auth } from "@/lib/auth";
+import { SignOut } from "./auth/signout-button";
 
 
-export default function Navbar() {
+export default async function Navbar() {
+
+      const session = await auth()
+
+      console.log(session)
     return <div className="bg-zinc-50 border-b">
             <div className="flex items-center justify-between max-w-4xl mx-auto py-4 ">
                 <Link href="/">HOME</Link>
-                <button>Login</button>
+                { session ? <SignOut /> : <SignIn />}
+
+             
             </div>
     </div>
 }
